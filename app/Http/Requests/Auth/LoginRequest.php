@@ -41,7 +41,8 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('login', 'password'), $this->boolean('remember'))) {
+        if (! Auth::attempt($this->only('login', 'password'), true)) {
+            // TODO
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
